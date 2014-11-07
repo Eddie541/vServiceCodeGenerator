@@ -6,7 +6,15 @@ using System.Threading.Tasks;
 
 namespace VSCDBusinessLib {
     public class CodeFile {
-        
+
+        public const string Equals = "=";
+        public const string GreaterThan = ">";
+        public const string LessThan = "<";
+        public const string GreaterThanOrEquals = ">=";
+        public const string LessThanOrEquals = "<=";
+        public const string NotEquals = "!=";
+
+
         public List<UsingStatement> Usings;
         public NamespaceDefinition NameSpace;
         public ClassDefinition ClassDefinition;
@@ -66,7 +74,7 @@ namespace VSCDBusinessLib {
         public string Name { get; set; }
         public string FileName {
             get {
-                if (Modifier.Equals(ManagerIOBase.Abstract)) {
+                if (Modifier.Equals(ManagerIOBase.Abstract) || Modifier.Equals(ManagerIOBase.Partial)) {
                     return Name + ".gen.cs";
                 } else {
                     return Name + ".cs";
@@ -75,11 +83,11 @@ namespace VSCDBusinessLib {
         } 
         protected List<BaseClass> BaseClasses { get; set; }
 
-        public void AddBaseClass(string baseClassName) {
-            BaseClasses.Add(new BaseClass() {
-                BaseName = baseClassName
-            });
-        }
+        //public void AddBaseClass(string baseClassName) {
+        //    BaseClasses.Add(new BaseClass() {
+        //        BaseName = baseClassName
+        //    });
+        //}
 
 
         protected CodeFileType CodeType;
@@ -133,16 +141,59 @@ namespace VSCDBusinessLib {
             return sb.ToString();
         }
 
+        public void AddBaseClass(string baseClassName, List<string> typeParameters = null) {
+            BaseClass baseClass = new BaseClass();
+            baseClass.BaseName = baseClassName;
+            if (typeParameters != null) {
+                foreach (string parameter in typeParameters) {
+                    baseClass.AddTypeParameter(parameter);
+                }
+            }
+            BaseClasses.Add(baseClass);
+        }
+
 
     }
 
 
     public class BaseClass {
         public string BaseName;
+        public void AddTypeParameter(string parameter) {
+            TypeParameters.Add(parameter);
+        }
+        private List<string> _typeParameters;
+        public List<string> TypeParameters {
+            get {
+                if (_typeParameters == null) {
+                    _typeParameters = new List<string>();
+                }
+                return _typeParameters;
+            }
+            private set { _typeParameters = value; }
+        }
+
         public override string ToString() {
-            return BaseName;
+            StringBuilder sb = new StringBuilder();
+            sb.Append(BaseName);
+            int count = 0;
+            int parameterCount = TypeParameters.Count;
+            foreach (string tParam in TypeParameters) {
+                if (count == 0) {
+                    sb.Append("<");
+                }
+                count++;
+                if (count == parameterCount) {
+                    sb.Append(tParam);
+                    sb.Append(">");
+                } else {
+                    sb.Append(tParam + ", ");
+                }
+            }
+            return sb.ToString();
+            
         }
     }
+
 
     public abstract class Property {
         public string Name;
@@ -222,25 +273,36 @@ namespace VSCDBusinessLib {
         public string LeftSide;
         public string Operand;
         public string RightSide;
+        public int Tabbing = 0;
 
         public Statement() {
             Content = new StringBuilder();
         }
 
 
-        public override string ToString() {            
-            Content.Append(IsReturn ? "     return " : "");
+        public override string ToString() {
+            Content.Append(IsReturn ? (InsertTabbing + "return ") : "");
             if (LeftSide != null) {
-                Content.AppendFormat("{0}", LeftSide);
+                Content.AppendFormat(InsertTabbing + "{0}", LeftSide);
             }
             if (Operand != null) {
-                Content.AppendFormat("{0}", Operand);
+                Content.AppendFormat(" {0}", Operand);
             }
             if (RightSide != null) {
                 Content.AppendFormat(" {0}", RightSide);
             }
             Content.AppendLine(Terminate ? ";" : "");
             return Content.ToString();
+        }
+
+        private string InsertTabbing {
+            get {
+                StringBuilder sb = new StringBuilder();
+                for (int t = 0; t < Tabbing; t++) {
+                    sb.Append("\t");
+                }
+                return sb.ToString();
+            }
         }
 
     }

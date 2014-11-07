@@ -32,7 +32,8 @@ namespace VSCDBusinessLib {
         private string _dataDirectory = "";
         public List<FileData> SelectedFiles { get; private set; }
         public InterfaceLibrary InterfaceLib { get; private set; }
-        private List<UsingStatement> usings; 
+        private List<UsingStatement> usings;
+        private ServiceInterfaceCollection ServiceInterfaces;
 
 
         public ServiceDataFileReader(string dataDirectory, DataFileCollection dataFiles) {
@@ -41,6 +42,7 @@ namespace VSCDBusinessLib {
             SelectedFiles = new List<FileData>();
             InterfaceLib = new InterfaceLibrary();
             usings = new List<UsingStatement>();
+            ServiceInterfaces = new ServiceInterfaceCollection();
             
             SetPropertyTypes();
             SetUsings();
@@ -84,10 +86,15 @@ namespace VSCDBusinessLib {
             }
         }
 
+        public ServiceInterfaceCollection GetServiceInterfaces() {
+            return ServiceInterfaces;
+        }
+
         private void ReadData(FileData fileData) {
             
             IEnumerable<string> lines = File.ReadAllLines(fileData.FInfo.FullName);
             ServiceInterface si = new ServiceInterface(fileData.Data.InterfaceName);
+            this.ServiceInterfaces.Add(si);
             CodeFile codeFile = new CodeFile(usings, "ServiceDataInterfaceLib", si);
             foreach (string line in lines) {
                 if (line.StartsWith("//") == false && string.IsNullOrEmpty(line) == false && string.IsNullOrWhiteSpace(line) == false) {

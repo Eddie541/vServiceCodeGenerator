@@ -16,6 +16,7 @@ namespace VSCDBusinessLib {
         public const string Private = "private";
         public const string _Instance = "_instance";
         public const string Instance = "Instance";
+        public const string Override = "override";
 
         public const string Method = "Method";
         public const string Parameter = "Parameter";

@@ -2,7 +2,33 @@
 using System;
 namespace VSCDBusinessLib {
     public class DataFile {
-        public string InterfaceName { get; set; }
+        private string _interfaceName;
+        public string InterfaceName {
+            get { return _interfaceName; }
+            set {
+                _interfaceName = value;
+                
+                string s = value.Remove(0, 1); //.TrimStart(new char[] { 'I' });
+                ServiceDataName = s;
+
+                s = s.Replace("ServiceData", "Controller");               
+                ControllerName = s;
+            }            
+        }
+
+        
+        public string ControllerName {
+            get;
+            private set;
+        }
+
+        public string ServiceDataName {
+            get;
+            private set;
+        }
+
+        public string ControllerKeyType { get; set; }
+
         private string _dataFileName;
         public string DataFileName {
             get { return _dataFileName; }

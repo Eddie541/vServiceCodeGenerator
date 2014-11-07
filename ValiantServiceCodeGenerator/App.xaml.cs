@@ -29,7 +29,8 @@ namespace ValiantServiceCodeGenerator {
                     InterfaceDefinitions = kvce["InterfaceDefinitions"].Value,
                     DataManagerDefinitions = kvce["DataManagerDefinitions"].Value,
                     DataManagerNamespace = kvce["DataManagerNamespace"].Value,
-                    ManagerDirectory = kvce["DataManagerDirectory"].Value
+                    ManagerDirectory = kvce["DataManagerDirectory"].Value,
+                    ServiceNamespace = kvce["ServiceNamespace"].Value
                 };
             }
        

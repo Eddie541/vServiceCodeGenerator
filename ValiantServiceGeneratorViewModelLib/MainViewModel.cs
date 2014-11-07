@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using VSCDBusinessLib;
 
 namespace ValiantServiceGeneratorViewModelLib
@@ -24,6 +25,20 @@ namespace ValiantServiceGeneratorViewModelLib
 
         public event EventHandler CloseForm;
 
+        private bool _complete = false;
+        public bool Complete {
+            get { return _complete; }
+            set {
+                if (HasPropertyChanged<bool>(_complete, value)) {
+                    _complete = value;                    
+                    this.OnPropertyChanged("Complete");
+                    if (_complete) {
+                        CommandManager.InvalidateRequerySuggested();
+                    }
+                }
+            }
+
+        }
 
         private string _sourceDirectory;
         public string SourceDirectory {
@@ -98,6 +113,17 @@ namespace ValiantServiceGeneratorViewModelLib
                 if (HasPropertyChanged<string>(_dataManagerNamespace, value)) {
                     _dataManagerNamespace = value;
                     this.OnPropertyChanged("DataManagerNamespace");
+                }
+            }
+        }
+
+        private string _serviceNamespace;
+        public string ServiceNamespace {
+            get { return _serviceNamespace; }
+            set {
+                if (HasPropertyChanged<string>(_serviceNamespace, value)) {
+                    _serviceNamespace = value;
+                    this.OnPropertyChanged("ServiceNamespace");
                 }
             }
         }
@@ -196,11 +222,12 @@ namespace ValiantServiceGeneratorViewModelLib
         }
 
         private bool CanQuit(MainViewModel vm) {
-            if (vm == null) {
-                return false;
-            } else if (bg == null) { 
+            
+            if (bg == null) { 
                 return true;
-            } else if (bg != null && bg.IsBusy == false && bg.CancellationPending == false)  {
+            } else if (bg != null && bg.IsBusy == false && bg.CancellationPending == false) {
+                return true;
+            } else if (Complete) {
                 return true;
             } else {
                 return false;
@@ -240,6 +267,7 @@ namespace ValiantServiceGeneratorViewModelLib
 
         void bg_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e) {
             ShowProgress = false;
+            Complete = true;
         }
 
         //void bg_ProgressChanged(object sender, ProgressChangedEventArgs e) {
@@ -247,11 +275,28 @@ namespace ValiantServiceGeneratorViewModelLib
         //}
 
         void bg_DoWork(object sender, DoWorkEventArgs e) {
+            Complete = false;
             MainViewModel mvm = e.Argument as MainViewModel;
             ServiceDataFileManager sdfm = null;
+            DataManagerFileManager dmfm = null;
+            DataControllerFileManager dcfm = null;
+            DataFileCollection datafiles = null;
+            ServiceInterfaceCollection serviceInterfaceCollection = null;
             if (mvm != null) {
                 using (sdfm = new ServiceDataFileManager(mvm.SchemaDirectory, mvm.InterfaceDefinitions, mvm.SourceDirectory, mvm.DestinationDirectory)) {
                     sdfm.GenerateServiceData();
+                    datafiles = sdfm.DataFiles;
+                    serviceInterfaceCollection = sdfm.ServiceInterfaces;
+                }
+
+                if (datafiles != null) {
+                    using (dcfm = new DataControllerFileManager(datafiles, ControllerDirectory, ServiceNamespace, serviceInterfaceCollection)) {
+                        dcfm.GenerateControllers();
+                    }
+                }
+
+                using (dmfm = new DataManagerFileManager(mvm.SchemaDirectory, mvm.DataManagerDefinitions, mvm.DataManagerNamespace, mvm.ManagerDirectory)) {
+                    dmfm.GenerateDataManagerCode();
                 }
             }
         }

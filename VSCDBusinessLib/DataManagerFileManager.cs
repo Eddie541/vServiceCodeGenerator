@@ -6,13 +6,14 @@ using System.Threading.Tasks;
 using UtilitiesLib;
 
 namespace VSCDBusinessLib {
-    public class DataManagerFileManager : ManagerIOBase {
+    public class DataManagerFileManager : ManagerIOBase, IDisposable {
 
         private string _dataManagerXmlFile;
         private string _dataNamespace;
         private string _managerDirectory;
         private string _schemaDirectory;
         private XMLBuilder _builder;
+        private bool disposed = false;
 
         public DataManagerFileManager(string schemaDirectory, string dataManagerXmlFile, string dataNamespace, string managerDirectory ) {
             _dataManagerXmlFile = dataManagerXmlFile;
@@ -29,8 +30,8 @@ namespace VSCDBusinessLib {
                 if (InitializeBuilder(_dataManagerXmlFile, _schemaDirectory, ref _builder)) {
                     DataManagerFileReader dataMgrFileReader = new DataManagerFileReader(_builder, _dataNamespace);
                     dataMgrFileReader.ReadDocument();
-                    DataManagerFileWriter fileWriter = new DataManagerFileWriter(dataMgrFileReader.DataManagerLib, _managerDirectory);
-                    fileWriter.WriteDataManagerFiles();
+                    CodeFileWriter fileWriter = new CodeFileWriter(dataMgrFileReader.DataManagerLib, _managerDirectory);
+                    fileWriter.WriteCodeFiles();
                 }
             } else {
                 throw new ApplicationException("The Data Manager File has not been set");
@@ -38,5 +39,21 @@ namespace VSCDBusinessLib {
 
         }
 
+
+        public void Dispose() {
+            OnDispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void OnDispose(bool disposing) {
+            if (disposed) {
+                return;
+            }
+            if (disposing) {
+                _builder = null;
+            }
+
+            disposed = true;
+        }
     }
 }

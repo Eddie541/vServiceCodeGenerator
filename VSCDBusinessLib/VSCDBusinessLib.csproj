@@ -41,18 +41,20 @@
   <ItemGroup>
     <Compile Include="BusinessConstants.cs" />
     <Compile Include="CodeFile.cs" />
+    <Compile Include="CodeFileWriter.cs" />
+    <Compile Include="DataControllerFileManager.cs" />
+    <Compile Include="DataControllerLibrary.cs" />
     <Compile Include="DataFile.cs" />
     <Compile Include="DataFileCollection.cs" />
     <Compile Include="DataManagerFileManager.cs" />
     <Compile Include="DataManagerFileReader.cs" />
-    <Compile Include="DataManagerFileWriter.cs" />
     <Compile Include="DataManagerLibrary.cs" />
     <Compile Include="InterfaceLibrary.cs" />
     <Compile Include="ManagerIOBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServiceDataFileManager.cs" />
     <Compile Include="ServiceDataFileReader.cs" />
-    <Compile Include="ServiceDataFileWriter.cs" />
+    <Compile Include="ServiceInterfaceCollection.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\UtilitiesLib\UtilitiesLib.csproj">

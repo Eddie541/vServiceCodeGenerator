@@ -6,22 +6,22 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace VSCDBusinessLib {
-    public class ServiceDataFileWriter {
+    public class CodeFileWriter {
 
-        private InterfaceLibrary _interfaceLib;
+        private List<CodeFile> _codeFileLib;
         private string _writeDirectoryPath;
 
-        public ServiceDataFileWriter(InterfaceLibrary interfaceLib, string interfaceDataDirectory) {
-            _interfaceLib = interfaceLib;
-            _writeDirectoryPath = interfaceDataDirectory;
+        public CodeFileWriter(List<CodeFile> codeFiles, string directoryPath) {
+            _codeFileLib = codeFiles;
+            _writeDirectoryPath = directoryPath;
 
         }
 
-        public void WriteServiceDataFile() {
+        public void WriteCodeFiles() {
             try {
                 DirectoryInfo di = new DirectoryInfo(_writeDirectoryPath);
                 if (di.Exists) {
-                    foreach (CodeFile codeFile in _interfaceLib) {
+                    foreach (CodeFile codeFile in _codeFileLib) {
                         string path = Path.Combine(_writeDirectoryPath, codeFile.FileName);
                         using (FileStream fs = File.Create(path)) {
                             Byte[] data = new UTF8Encoding(true).GetBytes(codeFile.ToString());

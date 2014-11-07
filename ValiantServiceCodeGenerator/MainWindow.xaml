@@ -2,7 +2,7 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="clr-namespace:ValiantServiceCodeGenerator"
-        Title="Valiant Web Api Mobile Code Generator" Height="Auto" Width="725">
+        Title="Valiant Web Api Mobile Code Generator" Height="475"  Width="725" Background="LemonChiffon">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="5"></ColumnDefinition>
@@ -16,7 +16,7 @@
             <RowDefinition Height="5"></RowDefinition>
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="1" Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Orientation="Vertical" Grid.ColumnSpan="2" Margin="8">
-            <TextBlock x:Name="Header" Text="Service Code Generator" FontSize="16"  HorizontalAlignment="Center" VerticalAlignment="Top" Margin="12"></TextBlock>
+            <TextBlock x:Name="Header" Text="Service Code Generator" FontSize="16" Foreground="Blue" FontWeight="Bold"  HorizontalAlignment="Center" VerticalAlignment="Top" Margin="12"></TextBlock>
         </StackPanel>
         <Grid Grid.Column="1" Grid.Row="2">
             <Grid.ColumnDefinitions>
@@ -36,6 +36,8 @@
                 <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="10"></RowDefinition>
                 <RowDefinition Height="5"></RowDefinition>
             </Grid.RowDefinitions>
             <TextBlock Text="Set Data Directory Source" Margin="4" VerticalAlignment="Center" Grid.Column="0" Grid.Row="1"></TextBlock>
@@ -47,30 +49,32 @@
             <TextBlock Text="Set Controller Location" Margin="4" VerticalAlignment="Center"  Grid.Column="0" Grid.Row="3"></TextBlock>
             <TextBox x:Name="ControllerTextBox" MinWidth="280" Margin="4" VerticalAlignment="Center"  Grid.Column="1" Grid.Row="3" Text="{Binding Path=ControllerDirectory}"></TextBox>
             <Button x:Name="BrowseControllerButton" Content="Browse" Margin="4" Padding="2" VerticalAlignment="Center"  Grid.Column="2" Grid.Row="3" Click="BrowseControllerButton_Click"></Button>
-            <TextBlock Text="Interface Definitions" Margin="4" VerticalAlignment="Center"  Grid.Column="0" Grid.Row="4"></TextBlock>
-            <TextBox x:Name="InterfaceDefinitionTextBox" MinWidth="280" Margin="4" VerticalAlignment="Center"  Grid.Column="1" Grid.Row="4" Text="{Binding Path=InterfaceDefinitions}"></TextBox>
-            <Button x:Name="BrowseInterfaceDefinitionButton" Content="Browse" Margin="4" Padding="2" VerticalAlignment="Center"  Grid.Column="2" Grid.Row="4" Click="BrowseInterfaceDefinitionButton_Click"></Button>
-            <TextBlock Text="Schema Directory" Margin="4" VerticalAlignment="Center"  Grid.Column="0" Grid.Row="5"></TextBlock>
-            <TextBox x:Name="SchemaDirectoryTextBox" MinWidth="280" Margin="4" VerticalAlignment="Center"  Grid.Column="1" Grid.Row="5" Text="{Binding Path=SchemaDirectory}"></TextBox>
-            <Button x:Name="BrowseSchemaDirectoryButton" Content="Browse" Margin="4" Padding="2" VerticalAlignment="Center"  Grid.Column="2" Grid.Row="5" Click="BrowseSchemaDirectoryButton_Click"></Button>
-            <TextBlock Text="Data Manager XML" Margin="4" VerticalAlignment="Center"  Grid.Column="0" Grid.Row="6"></TextBlock>
-            <TextBox x:Name="DataManagerDefinitionsTextBox" MinWidth="280" Margin="4" VerticalAlignment="Center"  Grid.Column="1" Grid.Row="6" Text="{Binding Path=DataManagerDefinitions}"></TextBox>
-            <Button x:Name="BrowseDataManagerDefinitionButton" Content="Browse" Margin="4" Padding="2" VerticalAlignment="Center"  Grid.Column="2" Grid.Row="6" Click="BrowseDataManagerDefinitionButton_Click"></Button>
-            <TextBlock Text="Data Manager Namespace" Margin="4" VerticalAlignment="Center"  Grid.Column="0" Grid.Row="7"></TextBlock>
-            <TextBox x:Name="DataManagerNameSpaceTextBox" MinWidth="280" Margin="4" VerticalAlignment="Center"  Grid.Column="1" Grid.Row="7" Text="{Binding Path=DataManagerNamespace}"></TextBox>
-            <TextBlock Text="Data Manager Directory" Margin="4" VerticalAlignment="Center"  Grid.Column="0" Grid.Row="8"></TextBlock>
-            <TextBox x:Name="DataManagerDirectoryTextBox" MinWidth="280" Margin="4" VerticalAlignment="Center"  Grid.Column="1" Grid.Row="8" Text="{Binding Path=ManagerDirectory}"></TextBox>
-            <Button x:Name="BrowseDataManagerDirectoryButton" Content="Browse" Margin="4" Padding="2" VerticalAlignment="Center"  Grid.Column="2" Grid.Row="8" Click="BrowseDataManagerDirectoryButton_Click"></Button>
-            <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="9" HorizontalAlignment="Center">
+            <TextBlock Text="Interface Definitions" Margin="4" VerticalAlignment="Center"  Grid.Column="0" Grid.Row="5"></TextBlock>
+            <TextBlock Text="Service Namespace" Margin="4" VerticalAlignment="Center"  Grid.Column="0" Grid.Row="4"></TextBlock>
+            <TextBox x:Name="ServiceNamespaceTextBox" MinWidth="280" Margin="4" VerticalAlignment="Center"  Grid.Column="1" Grid.Row="4" Text="{Binding Path=ServiceNamespace}"></TextBox>
+            <TextBox x:Name="InterfaceDefinitionTextBox" MinWidth="280" Margin="4" VerticalAlignment="Center"  Grid.Column="1" Grid.Row="5" Text="{Binding Path=InterfaceDefinitions}"></TextBox>
+            <Button x:Name="BrowseInterfaceDefinitionButton" Content="Browse" Margin="4" Padding="2" VerticalAlignment="Center"  Grid.Column="2" Grid.Row="5" Click="BrowseInterfaceDefinitionButton_Click"></Button>
+            <TextBlock Text="Schema Directory" Margin="4" VerticalAlignment="Center"  Grid.Column="0" Grid.Row="6"></TextBlock>
+            <TextBox x:Name="SchemaDirectoryTextBox" MinWidth="280" Margin="4" VerticalAlignment="Center"  Grid.Column="1" Grid.Row="6" Text="{Binding Path=SchemaDirectory}"></TextBox>
+            <Button x:Name="BrowseSchemaDirectoryButton" Content="Browse" Margin="4" Padding="2" VerticalAlignment="Center"  Grid.Column="2" Grid.Row="6" Click="BrowseSchemaDirectoryButton_Click"></Button>
+            <TextBlock Text="Data Manager XML" Margin="4" VerticalAlignment="Center"  Grid.Column="0" Grid.Row="7"></TextBlock>
+            <TextBox x:Name="DataManagerDefinitionsTextBox" MinWidth="280" Margin="4" VerticalAlignment="Center"  Grid.Column="1" Grid.Row="7" Text="{Binding Path=DataManagerDefinitions}"></TextBox>
+            <Button x:Name="BrowseDataManagerDefinitionButton" Content="Browse" Margin="4" Padding="2" VerticalAlignment="Center"  Grid.Column="2" Grid.Row="7" Click="BrowseDataManagerDefinitionButton_Click"></Button>
+            <TextBlock Text="Data Manager Namespace" Margin="4" VerticalAlignment="Center"  Grid.Column="0" Grid.Row="8"></TextBlock>
+            <TextBox x:Name="DataManagerNameSpaceTextBox" MinWidth="280" Margin="4" VerticalAlignment="Center"  Grid.Column="1" Grid.Row="8" Text="{Binding Path=DataManagerNamespace}"></TextBox>
+            <TextBlock Text="Data Manager Directory" Margin="4" VerticalAlignment="Center"  Grid.Column="0" Grid.Row="9"></TextBlock>
+            <TextBox x:Name="DataManagerDirectoryTextBox" MinWidth="280" Margin="4" VerticalAlignment="Center"  Grid.Column="1" Grid.Row="9" Text="{Binding Path=ManagerDirectory}"></TextBox>
+            <Button x:Name="BrowseDataManagerDirectoryButton" Content="Browse" Margin="4" Padding="2" VerticalAlignment="Center"  Grid.Column="2" Grid.Row="9" Click="BrowseDataManagerDirectoryButton_Click"></Button>
+            <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="10" HorizontalAlignment="Center">
                 <Button x:Name="StartButton" Content="Start" Margin="4" Padding="2" Width="80" Command="{Binding Path=StartCommand}" CommandParameter="{Binding}" ></Button>
                 <Button x:Name="CancelButton" Content="Cancel" Margin="4" Padding="2" Width="80" Command="{Binding Path=CancelCommand}" CommandParameter="{Binding}"></Button>
             </StackPanel>
-            <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="10" HorizontalAlignment="Center">
+            <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="11" HorizontalAlignment="Center">
                 <Button x:Name="ExitButton" Content="Quit" Margin="4" Padding="2" Width="80" Command="{Binding Path=QuitCommand}" CommandParameter="{Binding}" ></Button>
             </StackPanel>
         </Grid>
-        <Popup x:Name="ProgressPopUp" IsOpen="{Binding Path=ShowProgress}" HorizontalAlignment="Center" VerticalAlignment="Center" Placement="Center" PopupAnimation="Fade">
-            <StackPanel >
+        <Popup x:Name="ProgressPopUp" IsOpen="{Binding Path=ShowProgress}" HorizontalAlignment="Center" VerticalAlignment="Center" Placement="Center" PopupAnimation="None"  AllowsTransparency="True">
+            <StackPanel Background="Transparent">
                 <local:CircularProgressControl x:Name="ProgressControl"></local:CircularProgressControl>
             </StackPanel>
         </Popup>

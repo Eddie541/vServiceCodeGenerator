@@ -61,14 +61,14 @@ namespace VSCDBusinessLib {
         private void SetDataManagerLibrary() {
             foreach (DataManager dm in DataManagers) {               
 
-                DataManager derivedClass = new DataManager() {
-                    Name = dm.Name,
-                    Scope = Public,
-                    Modifier = "" // todo use partial??
-                };
-                derivedClass.AddBaseClass(dm.Name + "Base");
-                CodeFile derivedCodeFile = new CodeFile(usings, _namespaceName, derivedClass);
-                DataManagerLib.Add(derivedCodeFile);
+                //DataManager derivedClass = new DataManager() {
+                //    Name = dm.Name,
+                //    Scope = Public,
+                //    Modifier = "" // todo use partial??
+                //};
+                //derivedClass.AddBaseClass(dm.Name + "Base");
+                //CodeFile derivedCodeFile = new CodeFile(usings, _namespaceName, derivedClass);
+                //DataManagerLib.Add(derivedCodeFile);
 
                 if (dm.Modifier.Equals(Abstract)) {                    
                     dm.AddProperty(new DataProperty() {
@@ -133,7 +133,7 @@ namespace VSCDBusinessLib {
             Statement s1 = new Statement() {
                 Terminate = true,
                 IsReturn = true,
-                LeftSide = string.Format("Instance.{0}({1})", method.Name, sb.ToString()),
+                LeftSide = string.Format("Instance._{0}({1})", method.Name, sb.ToString()),
                 
 
             };

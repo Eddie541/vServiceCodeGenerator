@@ -9,10 +9,11 @@ namespace VSCDBusinessLib {
     public class ServiceDataFileManager : ManagerIOBase, IDisposable {        
 
         public DataFileCollection DataFiles { get; private set; }
+        public ServiceInterfaceCollection ServiceInterfaces { get; private set; }
         
         private XMLBuilder _builder;
         private ServiceDataFileReader _fileReader;
-        private ServiceDataFileWriter _fileWriter;
+        private CodeFileWriter _fileWriter;
         private string _schemaDirectory;
         private string _interfaceDefinitionFile;
         private string _sourceDirectory;
@@ -38,14 +39,16 @@ namespace VSCDBusinessLib {
                                                   select new DataFile() {
                                                       DataFileName = ((string)d.Element(XMLBuilder.GetElementXName("DataFileName", BusinessConstants.JmlfdcNamespace))),
                                                       InterfaceName = ((string)d.Element(XMLBuilder.GetElementXName("InterfaceName", BusinessConstants.JmlfdcNamespace))),
+                                                      ControllerKeyType = ((string)d.Element(XMLBuilder.GetElementXName("ControllerKeyType", BusinessConstants.JmlfdcNamespace)))
                                                   };
                 DataFiles = new DataFileCollection(dataFiles);
 
                 _fileReader = new ServiceDataFileReader(_sourceDirectory, DataFiles);
                 _fileReader.SelectDataFiles();
                 _fileReader.ReadDataFiles();
-                _fileWriter = new ServiceDataFileWriter(_fileReader.InterfaceLib, _destinationDirectory);
-                _fileWriter.WriteServiceDataFile();
+                ServiceInterfaces = _fileReader.GetServiceInterfaces();
+                _fileWriter = new CodeFileWriter(_fileReader.InterfaceLib, _destinationDirectory);
+                _fileWriter.WriteCodeFiles();
             }
         
         }     
