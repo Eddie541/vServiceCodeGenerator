@@ -19,7 +19,7 @@ namespace ValiantServiceGeneratorViewModelLib
         public const string Controller = "Controller";
         public const string Interface = "Interface";
         public const string Schema = "Schema";
-        public const string DataManager = "DataManager";
+        public const string DataManager = "Data Manager Definition";
         public const string BusinessNamespace = "BusinessNamespace";
         public const string DataManagerDirectory = "DataManagerDirectory";
 

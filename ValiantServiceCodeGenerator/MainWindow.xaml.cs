@@ -41,7 +41,7 @@ namespace ValiantServiceCodeGenerator {
         }
 
         private void BrowseDataManagerDefinitionButton_Click(object sender, RoutedEventArgs e) {
-            SetSelectedDirectoryData(MainViewModel.DataManager);
+            SetSelectedFileData(MainViewModel.DataManager);
         }
 
         private void BrowseDataManagerDirectoryButton_Click(object sender, RoutedEventArgs e) {
@@ -52,7 +52,7 @@ namespace ValiantServiceCodeGenerator {
         private void SetSelectedFileData(string fileType) {
 
             CommonOpenFileDialog cofd = new CommonOpenFileDialog();
-            cofd.Title = string.Format("Select an {0} file", fileType);
+            cofd.Title = string.Format("Select a(n) {0} file", fileType);
             cofd.IsFolderPicker = false;
            // cofd.InitialDirectory = "";  //todo get from solution file
             cofd.AddToMostRecentlyUsedList = true;
