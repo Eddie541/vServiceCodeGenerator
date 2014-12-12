@@ -52,8 +52,8 @@ namespace VSCDBusinessLib {
                 DataManagers.AddRange(dataManagers); 
                 SetDataManagerLibrary();
               
-            } catch (Exception e) {
-                throw e;
+            } catch (Exception) {
+                throw;
             }
         }
 

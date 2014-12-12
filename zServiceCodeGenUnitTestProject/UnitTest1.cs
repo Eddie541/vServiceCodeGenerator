@@ -8,7 +8,7 @@ using VSCDBusinessLib;
 
 namespace zServiceCodeGenUnitTestProject {
     [TestClass]
-    public class UnitTest1 {
+    public class UnitTest1 : IDisposable {
 
         ServiceDataFileManager sdfm;
         DataManagerFileManager dmfm;
@@ -46,5 +46,30 @@ namespace zServiceCodeGenUnitTestProject {
 
 
 
+
+        #region IDisposable Members
+
+        private bool disposed = false;
+
+        public void Dispose() {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing) {
+            if (disposed) {
+                return;
+            }
+            if (disposing) {
+                sdfm.Dispose();
+                dcfm.Dispose();
+                dmfm.Dispose();
+            }
+
+            disposed = true;
+
+        }
+
+        #endregion
     }
 }

@@ -306,5 +306,54 @@ namespace VSCDBusinessLib {
         }
 
     }
+
+    public class Comment {
+        private const string singleCommentStart = "//";
+        private const string multilineCommentStart = "/*";
+        private const string multilineCommentEnd = "*/";
+
+        private bool multiline = false;
+        public bool MultiLine {
+            get { return multiline; }
+            set { multiline = value; }
+        }
+
+        private List<string> commentLines;
+
+        public void AddComment(string comment) {
+            commentLines.Add(comment);
+        }
+
+        public Comment() {
+            commentLines = new List<string>();
+        }
+
+        public override string ToString() {
+            StringBuilder sb = new StringBuilder();
+            int count = commentLines.Count;
+            int current = 0;
+            foreach (string comment in commentLines) {
+                
+                if (MultiLine) {
+                    if (current == 0) {
+                        sb.AppendFormat("{0} {1}", multilineCommentStart, comment);
+                        sb.AppendLine();
+                    } else {
+                        sb.AppendLine("* " + comment);
+                    }
+                    current++;
+                    if (current == count) {
+                        sb.AppendLine(multilineCommentEnd);
+                    }
+                    
+                } else {
+                    sb.AppendFormat("{0} {1}", singleCommentStart, comment);
+                    sb.AppendLine();
+                }
+            }
+            return sb.ToString();
+        }
+
+    }
    
 }

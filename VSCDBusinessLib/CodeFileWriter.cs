@@ -30,9 +30,9 @@ namespace VSCDBusinessLib {
 
                     }
                 }
-            } catch (Exception ex) {
+            } catch (Exception) {
 
-                throw ex;
+                throw;
 
             }
 
