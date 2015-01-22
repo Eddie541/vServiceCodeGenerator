@@ -94,7 +94,7 @@ namespace ValiantServiceGeneratorViewModelLib {
         }
 
         public ViewModelBase() {
-            SetActions();
+            //SetActions();
         }
 
         protected virtual void SetActions() {

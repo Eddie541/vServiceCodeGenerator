@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace VSCDBusinessLib {
     public class CodeFile {
 
-        public const string Equals = "=";
+        public const string Equalsx = "=";
         public const string GreaterThan = ">";
         public const string LessThan = "<";
         public const string GreaterThanOrEquals = ">=";

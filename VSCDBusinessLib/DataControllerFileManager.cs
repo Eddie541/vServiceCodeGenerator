@@ -82,7 +82,7 @@ namespace VSCDBusinessLib {
             Statement statement = new Statement();
             statement.Tabbing = 2;
             statement.LeftSide = method.ReturnType + " service";
-            statement.Operand = CodeFile.Equals;
+            statement.Operand = CodeFile.Equalsx;
             statement.RightSide = "new " + method.ReturnType + "() {";
             method.Statements.Add(statement);
             int current = 0;
@@ -93,7 +93,7 @@ namespace VSCDBusinessLib {
                 Statement propertyStatement = new Statement() {
                     Tabbing = 3,
                     LeftSide = p.Name,
-                    Operand = CodeFile.Equals,
+                    Operand = CodeFile.Equalsx,
                     RightSide = "data." + p.Name + (current < count ? "," : "")
                 };
                 method.Statements.Add(propertyStatement);
