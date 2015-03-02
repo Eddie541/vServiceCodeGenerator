@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Xml;
@@ -7,25 +8,28 @@ using System.Xml;
 namespace UtilitiesLib
 {
     public static class StringUtilities {
-        public static string TrimPathFileName(string fileName, int maxLength) {
+        public static string TrimPathFileName(string filePath, int maxLength) {
             string ellipsis = "...";
-            if (fileName.Length > maxLength) {
-                int removeCharCount = (fileName.Length - maxLength) + 3;
-                int slashCount = fileName.Count(c => c.Equals('\\'));
-                int lastSlash = fileName.LastIndexOf('\\');
-                int ellipsisStart = lastSlash - removeCharCount;
-                if (slashCount > 1 && ellipsisStart > 2) {
-                    fileName = fileName.Remove(ellipsisStart, removeCharCount);
-                    fileName = fileName.Insert(ellipsisStart, ellipsis);
+            string fName = Path.GetFileName(filePath);
+            int pathLength = filePath.Length;            
+            int fileNameLength = fName.Length + 3;
+
+            if (fileNameLength > maxLength) {                
+                throw new ApplicationException("Filename length plus separator cannot exceed max length");
+            } else if (pathLength > maxLength) {               
+                
+                string extendedPathFileName = ellipsis + fName;              
+
+                int finalPathLength = maxLength - (fileNameLength + 1);
+                if (finalPathLength > 0) {
+                    filePath = filePath.Remove(finalPathLength);
+                    filePath = filePath.Insert(finalPathLength, extendedPathFileName);
                 } else {
-                    int lastDot = fileName.LastIndexOf('.');
-                    int start = lastDot - removeCharCount;
-                    fileName = fileName.Remove(start, removeCharCount);
-                    fileName = fileName.Insert(start, ellipsis);
+                    filePath = extendedPathFileName;
                 }
 
             }
-            return fileName;
+            return filePath;
         }
 
         public static string SafeSubstring(this string wholeString, int startIndex, int length) {
@@ -144,31 +148,38 @@ namespace UtilitiesLib
 		}
 
 		public static string SplitCamelCase (string camelString) {
+            if (AreAllCharactersUpperCase(camelString)) {
+                return camelString;
+            }
 			StringBuilder result = new StringBuilder ();
 			StringBuilder word = null;
 			int lastPosition = camelString.Length - 1;
 			int position = 0;
-			int nextPosition = 1;
-			foreach (char c in camelString) {				
-				nextPosition = position + 1;
-				char next = char.MinValue;
-				if (nextPosition <= lastPosition) {
-					next = camelString [nextPosition];
-				}
-				if (char.IsUpper (c) && char.IsUpper(next) == false && position < lastPosition) {
-					if (word != null) {
-						result.Append (word.ToString () + " ");
-					}
-					word = new StringBuilder ();
-				}
-				if (word != null) {
-					word.Append(c);
-				}
-				position++;
-			}
+            int nextPosition = 1;
+            foreach (char c in camelString) {
+                nextPosition = position + 1;
+                char next = char.MinValue;
+                if (nextPosition <= lastPosition) {
+                    next = camelString[nextPosition];
+                }
+                if (char.IsUpper(c) && char.IsUpper(next) == false && position < lastPosition) {
+                    if (word != null) {
+                        result.Append(word.ToString() + " ");
+                    }
+                    word = new StringBuilder();
+                }
+                if (word != null) {
+                    word.Append(c);
+                }
+                position++;
+            }
 			result.Append (word);
 			return result.ToString ();
 		}
+
+        private static bool AreAllCharactersUpperCase(string s) {
+            return s.All(t => char.IsUpper(t));
+        }
 
 		public static string StripOutLineFeedsAndCarriageReturns(this string input) {
 			StringBuilder result = new StringBuilder();

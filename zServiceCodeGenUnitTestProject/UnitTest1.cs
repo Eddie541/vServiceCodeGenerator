@@ -18,6 +18,7 @@ namespace zServiceCodeGenUnitTestProject {
         public void TestMethod1() {
             MainViewModel mvm = new MainViewModel() {
                 SourceDirectory = @"C:\Projects\DcamDataService\DcamLocalDbDataLib",
+                //SourceDirectory = @"C:\Projects\DcamDataService\DcamLocalDbDataLib\Blah1\Blah2\Blah3\Blah4\Blah5\Blah6\Blah7\Blah8\Blah9\Blah10\Blah5\Blah6\Blah7\Blah8\Blah9\Blah10\test.txt",
                 DestinationDirectory = @"C:\testGen\DcamDataService.ServiceInterface",
                 ControllerDirectory = @"C:\testGen\DcamDataService.Controllers",
                 InterfaceDefinitions = @"C:\testGen\DataFiles\ServiceDataSchema.xml",
@@ -29,6 +30,9 @@ namespace zServiceCodeGenUnitTestProject {
 
             };
 
+            string x = StringUtilities.TrimPathFileName(mvm.SourceDirectory, 100);
+
+            //Console.Write(x);
             sdfm = new ServiceDataFileManager(mvm.SchemaDirectory, mvm.InterfaceDefinitions, mvm.SourceDirectory,
                 mvm.DestinationDirectory);
             sdfm.GenerateServiceData();
