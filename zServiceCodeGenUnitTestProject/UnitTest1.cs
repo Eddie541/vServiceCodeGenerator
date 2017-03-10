@@ -17,16 +17,16 @@ namespace zServiceCodeGenUnitTestProject {
         [TestMethod]
         public void TestMethod1() {
             MainViewModel mvm = new MainViewModel() {
-                SourceDirectory = @"C:\Projects\DcamDataService\DcamLocalDbDataLib",
-                //SourceDirectory = @"C:\Projects\DcamDataService\DcamLocalDbDataLib\Blah1\Blah2\Blah3\Blah4\Blah5\Blah6\Blah7\Blah8\Blah9\Blah10\Blah5\Blah6\Blah7\Blah8\Blah9\Blah10\test.txt",
-                DestinationDirectory = @"C:\testGen\DcamDataService.ServiceInterface",
-                ControllerDirectory = @"C:\testGen\DcamDataService.Controllers",
+                SourceDirectory = @"C:\Projects\DataService\LocalDbDataLib",
+                //SourceDirectory = @"C:\Projects\DataService\LocalDbDataLib\Blah1\Blah2\Blah3\Blah4\Blah5\Blah6\Blah7\Blah8\Blah9\Blah10\Blah5\Blah6\Blah7\Blah8\Blah9\Blah10\test.txt",
+                DestinationDirectory = @"C:\testGen\DataService.ServiceInterface",
+                ControllerDirectory = @"C:\testGen\DataService.Controllers",
                 InterfaceDefinitions = @"C:\testGen\DataFiles\ServiceDataSchema.xml",
                 SchemaDirectory = @"C:\testGen\Schemas",
                 DataManagerDefinitions = @"C:\testGen\DataFiles\DataManagerLibrary.xml",
-                DataManagerNamespace = "DcamBusiness",
+                DataManagerNamespace = "Business",
                 ManagerDirectory = @"C:\testGen\DataManagerTest",
-                ServiceNamespace = "DcamDataService"
+                ServiceNamespace = "DataService"
 
             };
 

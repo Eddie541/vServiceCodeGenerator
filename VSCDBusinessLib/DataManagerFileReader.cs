@@ -165,7 +165,7 @@ namespace VSCDBusinessLib {
                 Assembly = "System.Linq"
             });
             usings.Add(new UsingStatement() {
-                Assembly = "DcamLocalDbDataLib"
+                Assembly = "LocalDbDataLib"
             });
             usings.Add(new UsingStatement() {
                 Assembly = "ServiceDataLib"
