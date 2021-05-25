@@ -7,6 +7,6 @@ using System.Threading.Tasks;
 namespace VSCDBusinessLib {
     public static class BusinessConstants {
 
-        public const string JmlfdcNamespace = "JMLFDC";
+        public const string valiantNamespace = "VALIANT";
     }
 }

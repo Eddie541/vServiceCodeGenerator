@@ -27,7 +27,7 @@ namespace VSCDBusinessLib {
         protected bool InitializeBuilder(string xmlDataFile, string schemaDirectory, ref XMLBuilder builder) {
             bool initialized = false;
             StringBuilder sb = new StringBuilder();
-            XDocument doc = XMLBuilder.XMLReaderDocumentValidate(schemaDirectory, BusinessConstants.JmlfdcNamespace, xmlDataFile, sb);
+            XDocument doc = XMLBuilder.XMLReaderDocumentValidate(schemaDirectory, BusinessConstants.valiantNamespace, xmlDataFile, sb);
             if (doc != null) {
                 builder = new XMLBuilder(doc);
                 initialized = true;

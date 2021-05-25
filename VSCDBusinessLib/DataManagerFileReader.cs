@@ -31,18 +31,18 @@ namespace VSCDBusinessLib {
 
         public void ReadDocument() {
             try {
-                IEnumerable<DataManager> dataManagers = from d in _builder.CurrentDocument.Descendants(XMLBuilder.GetElementXName(DataManager, BusinessConstants.JmlfdcNamespace))
+                IEnumerable<DataManager> dataManagers = from d in _builder.CurrentDocument.Descendants(XMLBuilder.GetElementXName(DataManager, BusinessConstants.valiantNamespace))
                                                         select new DataManager () {
                                                             Name = ((string)d.Attribute("name").Value),
                                                             Modifier = ((string)d.Attribute("modifier").Value),
                                                             Scope = ((string)d.Attribute("scope").Value),
-                                                            Methods = (from m in d.Descendants(XMLBuilder.GetElementXName(Method, BusinessConstants.JmlfdcNamespace))
+                                                            Methods = (from m in d.Descendants(XMLBuilder.GetElementXName(Method, BusinessConstants.valiantNamespace))
                                                                        select new Method() {
                                                                            Name = ((string)m.Attribute("name")),
                                                                            ReturnType = ((string)m.Attribute("return")),
                                                                            Modifier = Abstract,
                                                                            Scope = Protected,
-                                                                           Parameters = (from p in m.Descendants(XMLBuilder.GetElementXName(Parameter, BusinessConstants.JmlfdcNamespace))
+                                                                           Parameters = (from p in m.Descendants(XMLBuilder.GetElementXName(Parameter, BusinessConstants.valiantNamespace))
                                                                                          select new MethodParameter() {
                                                                                              Name = ((string)p.Attribute("name")),
                                                                                              ParameterType = ((string)p.Attribute("type")),

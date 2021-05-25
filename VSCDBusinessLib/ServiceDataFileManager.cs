@@ -35,11 +35,11 @@ namespace VSCDBusinessLib {
 
         public void GenerateServiceData() {
             if (InitializeBuilder( _interfaceDefinitionFile, _schemaDirectory, ref _builder)) {
-                IEnumerable<DataFile> dataFiles = from d in _builder.CurrentDocument.Descendants(XMLBuilder.GetElementXName("ServiceDataInterface", BusinessConstants.JmlfdcNamespace))
+                IEnumerable<DataFile> dataFiles = from d in _builder.CurrentDocument.Descendants(XMLBuilder.GetElementXName("ServiceDataInterface", BusinessConstants.valiantNamespace))
                                                   select new DataFile() {
-                                                      DataFileName = ((string)d.Element(XMLBuilder.GetElementXName("DataFileName", BusinessConstants.JmlfdcNamespace))),
-                                                      InterfaceName = ((string)d.Element(XMLBuilder.GetElementXName("InterfaceName", BusinessConstants.JmlfdcNamespace))),
-                                                      ControllerKeyType = ((string)d.Element(XMLBuilder.GetElementXName("ControllerKeyType", BusinessConstants.JmlfdcNamespace)))
+                                                      DataFileName = ((string)d.Element(XMLBuilder.GetElementXName("DataFileName", BusinessConstants.valiantNamespace))),
+                                                      InterfaceName = ((string)d.Element(XMLBuilder.GetElementXName("InterfaceName", BusinessConstants.valiantNamespace))),
+                                                      ControllerKeyType = ((string)d.Element(XMLBuilder.GetElementXName("ControllerKeyType", BusinessConstants.valiantNamespace)))
                                                   };
                 DataFiles = new DataFileCollection(dataFiles);
 
